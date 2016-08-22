@@ -1,0 +1,77 @@
+@charset "utf-8";
+//使用する場合は@include borderBox; のように記述
+//clearfix 使用する場合は
+//任意のセレクタ { @include clearfix; } のように記述する
+@mixin clearfix {
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+        clear: both;
+    }
+}
+
+//グラデーションのカスタマイズ $topにグラデーショントップの色、$afterにボトムの色を指定
+// $top : グラデーションのトップの色
+// $bottom : グラデーションのボトムの色;
+@mixin custom-gradient( $top, $bottom) {
+    background-image: -webkit-gradient(linear, left top, left bottom, from($top), to($bottom));
+    background-image: linear-gradient($top, $bottom);
+}
+
+//ボックスシャドウ
+@mixin boxShadow($right-left, $down-left, $blur, $spread, $color, $inset: null) {
+    -webkit-box-shadow: $right-left $down-left $blur $spread $color $inset;
+    box-shadow: $right-left $down-left $blur $spread $color $inset;
+}
+
+//border-raduis
+@mixin borderRadius($top-left, $top-right, $bottom-right, $bottom-left) {
+    -webkit-border-radius: $top-left $top-right $bottom-right $bottom-left;
+    border-radius: $top-left $top-right $bottom-right $bottom-left;
+}
+
+@function floor-decimal ($number, $digits: 0) {
+    @return to-fixed($number, $digits, 'floor');
+}
+
+//hover時の透過
+// ** マウスオーバーで透過 **
+//
+// $ratio : 透過する割合（0～1の間で指定）
+//
+@mixin opacity($ratio:0.7) {
+    opacity: $ratio;
+}
+
+@mixin no-opacity {
+    opacity: 100%;
+}
+
+// ** 画像置換 **
+//
+// $width     : 置換するエリアの幅(width)
+// $height    : 置換するエリアの高さ(padding-top)
+// $image     : 置換する画像の名前
+// $extension : 置換する画像の拡張子(jpgとか)
+// $posx      : 置換する画像のx方向のポジション（デフォルトはcenter）
+// $posy      : 置換する画像のy方向のポジション（デフォルトはcenter）
+//
+@mixin replace($width, $height, $image, $extension, $posx:center, $posy:center) {
+    $image-path: images;
+    display: block;
+    width: $width;
+    height: 0;
+    padding-top: $height;
+    overflow: hidden;
+    background-image: url("#{$image-path}" + $image + '.' + $extension);
+    background-repeat: no-repeat;
+    background-position: $posx $posy;
+}
+
+// ** 文字サイズ出力 **
+// $size : 文字サイズ（デフォルトはサイトによって異なるので毎回指定する）
+@mixin fontsize($size: $fontsize) {
+    font-size: $size;
+    font-size: ($size / 16px) * 1rem;
+}

@@ -1,0 +1,23 @@
+@charset "utf-8";
+#page_title {
+    color: #ffffff;
+    background-color: #9c9992;
+    @include fontsize(9px);
+    padding-left: 152px;
+}
+
+#index_header_area {
+    @include replace(1150px, 504px, bg_index_header, jpg);
+}
+
+#index_header_area:after {
+    @include replace(950px, 40px, bg_index_contents, png);
+}
+
+#index_contents,
+#top_gnav {}
+
+#footer {
+    color: #ffffff;
+    background-color: #383733;
+}
